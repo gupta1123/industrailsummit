@@ -89,7 +89,6 @@ export function PrivateRegistrationForm() {
       </div>
 
       <div className="summit-actions">
-        <p className="summit-actions-note">Your details will be shared only with the summit organising team. No payment is required on this form.</p>
         <button className="button-primary min-w-56 px-7 text-[15px]" type="submit" disabled={pending}>
           {pending ? "Submitting registration..." : "Submit registration"}
           {!pending && <PiCheckCircle aria-hidden="true" />}
