@@ -133,7 +133,6 @@ export function PrivateSummitShell({ children }: { children: React.ReactNode }) 
   return (
     <div className="summit-shell">
       <aside className="summit-sidebar">
-        <p className="summit-eyebrow">Private invitation</p>
         <h1>Confirm your <em>attendance</em>.</h1>
         <p className="summit-sidebar-copy">Complete this one-step form so the organising team can prepare your summit access.</p>
 
