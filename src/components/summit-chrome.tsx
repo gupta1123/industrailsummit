@@ -142,10 +142,6 @@ export function PrivateSummitShell({ children }: { children: React.ReactNode }) 
           <p><strong>Thursday, 3 September 2026</strong><br /><strong>The Fern Hotel, Jalna</strong><br />9:00 am–3:00 pm, followed by a networking lunch and a dry port site visit.</p>
         </div>
 
-        <div className="summit-privacy">
-          <strong>Your details stay private</strong>
-          <p>This form is available only through its direct link. Entries are visible only to approved summit administrators.</p>
-        </div>
       </aside>
       <div className="min-w-0">{children}</div>
     </div>
