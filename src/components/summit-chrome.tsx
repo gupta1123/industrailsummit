@@ -11,9 +11,11 @@ const steps = [
 export function SummitHeader({
   activeStep,
   greeting,
+  secureLabel = "Secure registration",
 }: {
   activeStep: 1 | 2 | 3 | 4;
   greeting?: string;
+  secureLabel?: string;
 }) {
   const progress = activeStep === 4 ? 100 : (activeStep / 3) * 100;
 
@@ -41,7 +43,7 @@ export function SummitHeader({
           )}
           <span className="summit-secure">
             <PiLockKey aria-hidden="true" />
-            <span>Secure registration</span>
+            <span>{secureLabel}</span>
           </span>
         </div>
       </header>
@@ -133,12 +135,19 @@ export function PrivateSummitShell({ children }: { children: React.ReactNode }) 
   return (
     <div className="summit-shell">
       <aside className="summit-sidebar">
-        <h1>Confirm your <em>attendance</em>.</h1>
-        <p className="summit-sidebar-copy">Complete this one-step form so the organising team can prepare your summit access.</p>
+        <h1>Join the list for any <em>available seats</em>.</h1>
+        <p className="summit-sidebar-copy">
+          Regular registrations are closed. Share your details only if you
+          would like the team to contact you if a seat opens.
+        </p>
 
         <div className="summit-date-card mt-8">
           <p className="summit-date-title"><PiCalendarBlank aria-hidden="true" /> Date &amp; venue</p>
           <p><strong>Thursday, 3 September 2026</strong><br /><strong>The Fern Hotel, Jalna</strong><br />9:00 am–3:00 pm, followed by a networking lunch and a dry port site visit.</p>
+          <p>
+            If a confirmed delegate is unable to attend, the organising team
+            may contact people from this list.
+          </p>
         </div>
 
       </aside>

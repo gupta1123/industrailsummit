@@ -1,10 +1,11 @@
 import Link from "next/link";
-import { PiCreditCard, PiLinkSimple } from "react-icons/pi";
+import { PiCreditCard, PiLinkSimple, PiUserList } from "react-icons/pi";
 
-export function AdminNavigation({ active }: { active: "paid" | "private" }) {
+export function AdminNavigation({ active }: { active: "paid" | "private" | "waitlist" }) {
   const items = [
     { key: "paid" as const, href: "/admin", label: "Paid registrations", description: "Public form and payments", icon: PiCreditCard },
     { key: "private" as const, href: "/admin/private", label: "Link-only entries", description: "Private form submissions", icon: PiLinkSimple },
+    { key: "waitlist" as const, href: "/admin/waitlist", label: "Waitlist entries", description: "After registrations closed", icon: PiUserList },
   ];
 
   return (

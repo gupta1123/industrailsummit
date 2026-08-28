@@ -25,7 +25,7 @@ export default function TermsPage() {
       <section>
         <h2>No payment on this form</h2>
         <p className="mt-3">
-          This private form does not collect payment, create a payment order, or apply a redeem code. Any separate commercial arrangement must be communicated directly by the organiser.
+          This form does not collect payment, create a payment order, or apply a redeem code. Any separate commercial arrangement must be communicated directly by the organiser.
         </p>
       </section>
 

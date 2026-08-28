@@ -5,14 +5,14 @@ import { PrivateSummitShell, SummitHeader, SummitPanelHeader } from "@/component
 export default function PrivateRegistrationPage() {
   return (
     <main className="summit-app flex flex-col">
-      <SummitHeader activeStep={4} />
+      <SummitHeader activeStep={4} secureLabel="Secure interest form" />
       <PrivateSummitShell>
         <section aria-labelledby="summit-panel-title" className="summit-panel">
           <SummitPanelHeader
-            accent="attending?"
-            description={<>This is what goes on your attendee record. Fields marked <span className="summit-required">*</span> are required.</>}
-            step="Private registration"
-            title="Who's"
+            accent="closed"
+            description="You may still share your details for consideration if a confirmed seat opens."
+            step="Industrial Summit 2026"
+            title="Registrations"
           />
           <div className="summit-panel-body">
             <PrivateRegistrationForm />

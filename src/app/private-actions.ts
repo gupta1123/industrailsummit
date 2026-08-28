@@ -1,11 +1,13 @@
 "use server";
 
-import { redirect } from "next/navigation";
-
-import { summitRegistrationSchema, type RegistrationValues } from "@/lib/summit/validation";
+import {
+  summitRegistrationSchema,
+  type RegistrationValues,
+} from "@/lib/summit/validation";
 import { createSupabaseServiceClient } from "@/lib/supabase/service";
 
-export type PrivateRegistrationState = {
+export type WaitlistRegistrationState = {
+  success?: boolean;
   message?: string;
   errors?: Partial<Record<keyof RegistrationValues, string[]>>;
   values?: Partial<RegistrationValues>;
@@ -16,10 +18,10 @@ function formValue(formData: FormData, name: string) {
   return typeof input === "string" ? input : "";
 }
 
-export async function submitPrivateRegistration(
-  _previousState: PrivateRegistrationState,
+export async function submitWaitlistRegistration(
+  _previousState: WaitlistRegistrationState,
   formData: FormData,
-): Promise<PrivateRegistrationState> {
+): Promise<WaitlistRegistrationState> {
   const submittedValues = {
     first_name: formValue(formData, "first_name"),
     last_name: formValue(formData, "last_name"),
@@ -74,27 +76,42 @@ export async function submitPrivateRegistration(
     summit_expectations: parsed.data.summit_expectations,
   };
 
-  const supabase = createSupabaseServiceClient();
-  const { error } = await supabase.from("summit_private_registrations").insert({
-    first_name: values.first_name,
-    last_name: values.last_name,
-    phone: values.phone,
-    email: values.email.toLowerCase(),
-    industry: values.industry === "Other" ? values.industry_other : values.industry,
-    profession: values.profession,
-    designation: values.designation,
-    place: values.place,
-    participation_purpose: values.participation_purpose,
-    summit_expectations: values.summit_expectations || null,
-  });
+  try {
+    const supabase = createSupabaseServiceClient();
+    const { error } = await supabase
+      .from("summit_waitlist_registrations")
+      .insert({
+        registration_type: "individual",
+        company_name: null,
+        attendee_count: 1,
+        first_name: values.first_name,
+        last_name: values.last_name,
+        phone: values.phone,
+        email: values.email.toLowerCase(),
+        industry:
+          values.industry === "Other" ? values.industry_other : values.industry,
+        profession: values.profession,
+        designation: values.designation,
+        place: values.place,
+        participation_purpose: values.participation_purpose,
+        meeting_requests: [],
+        summit_expectations: values.summit_expectations || null,
+      });
 
-  if (error) {
-    console.error("Unable to save private summit registration:", error.message);
+    if (error) {
+      console.error("Unable to save waitlist registration:", error);
+      return {
+        message: "We could not save your details. Please try again.",
+        values,
+      };
+    }
+  } catch (err: unknown) {
+    console.error("Error connecting to Supabase or saving waitlist:", err);
     return {
-      message: "We could not save your registration. Please try again.",
+      message: "We could not save your details. Please try again.",
       values,
     };
   }
 
-  redirect("/submitted");
+  return { success: true };
 }

@@ -163,3 +163,32 @@ export type PrivateAdminFilters = {
   cursor: number | null;
   direction: "next" | "previous";
 };
+
+export type WaitlistAdminRegistration = {
+  id: number;
+  submission_token: string;
+  registration_type: "individual" | "corporate";
+  company_name: string | null;
+  attendee_count: number;
+  first_name: string;
+  last_name: string;
+  phone: string;
+  email: string | null;
+  industry: string | null;
+  profession: string | null;
+  designation: string | null;
+  place: string | null;
+  participation_purpose: string | null;
+  meeting_requests: string[];
+  summit_expectations: string | null;
+  source: "registrations_closed";
+  created_at: string;
+  updated_at: string;
+};
+
+export type WaitlistAdminFilters = {
+  search: string;
+  sort: "recent" | "oldest";
+  cursor: number | null;
+  direction: "next" | "previous";
+};

@@ -27,7 +27,7 @@ export default function PrivacyPage() {
       <section>
         <h2>How we use information</h2>
         <ul className="mt-3">
-          <li>Record and manage private summit registrations.</li>
+          <li>Record and manage registration update submissions.</li>
           <li>Provide event information, access details, and attendee support.</li>
           <li>Protect the form from abuse and maintain accurate records.</li>
           <li>Meet applicable legal and regulatory obligations.</li>

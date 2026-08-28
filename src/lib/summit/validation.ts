@@ -9,16 +9,52 @@ const requiredText = (label: string, maximum = 120) =>
     .min(1, `${label} is required.`)
     .max(maximum, `${label} must be ${maximum} characters or fewer.`);
 
+const phoneNumber = z
+  .string()
+  .trim()
+  .superRefine((value, context) => {
+    if (!value) {
+      context.addIssue({
+        code: "custom",
+        message: "Phone number is required.",
+      });
+      return;
+    }
+
+    if (!/^\d+$/.test(value)) {
+      context.addIssue({
+        code: "custom",
+        message: "Enter numbers only.",
+      });
+      return;
+    }
+
+    if (value.length < 10) {
+      const missingDigits = 10 - value.length;
+      context.addIssue({
+        code: "custom",
+        message: `Phone number must be 10 digits. Add ${missingDigits} more ${
+          missingDigits === 1 ? "digit" : "digits"
+        }.`,
+      });
+    }
+
+    if (value.length > 10) {
+      const extraDigits = value.length - 10;
+      context.addIssue({
+        code: "custom",
+        message: `Phone number must be 10 digits. Remove ${extraDigits} extra ${
+          extraDigits === 1 ? "digit" : "digits"
+        }.`,
+      });
+    }
+  });
+
 export const summitRegistrationSchema = z
   .object({
     first_name: requiredText("First name", 80),
     last_name: requiredText("Last name", 80),
-    phone: z
-      .string()
-      .trim()
-      .min(7, "Enter a valid phone number.")
-      .max(30, "Enter a valid phone number.")
-      .regex(/^[0-9+() .-]+$/, "Enter a valid phone number."),
+    phone: phoneNumber,
     email: z.string().trim().email("Enter a valid email address.").max(320),
     industry: requiredText("Sector").refine(
       (value) =>
@@ -64,12 +100,7 @@ export const redeemCodeSchema = z.object({
 export const corporateRegistrationSchema = z.object({
   first_name: requiredText("First name", 80),
   last_name: requiredText("Last name", 80),
-  phone: z
-    .string()
-    .trim()
-    .min(7, "Enter a valid phone number.")
-    .max(30, "Enter a valid phone number.")
-    .regex(/^[0-9+() .-]+$/, "Enter a valid phone number."),
+  phone: phoneNumber,
   company_name: requiredText("Company name"),
   attendee_count: z.coerce
     .number()

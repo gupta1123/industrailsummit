@@ -15,7 +15,7 @@ export default function ContactPage() {
     <PublicInformationPage
       eyebrow="Support"
       title="Contact us"
-      intro="Get help with the private registration form or summit access."
+      intro="Get help with the registration update form or summit access."
     >
       <section>
         <h2>Registration support</h2>
