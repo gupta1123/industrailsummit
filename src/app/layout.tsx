@@ -11,7 +11,7 @@ const instrumentSerif = Instrument_Serif({
 
 export const metadata: Metadata = {
   title: "Industrial Summit | Registration Update",
-  description: "Share your details for Industrial Summit seat availability updates.",
+  description: "Industrial Summit registrations are closed.",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
